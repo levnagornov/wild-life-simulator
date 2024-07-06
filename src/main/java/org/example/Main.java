@@ -9,20 +9,15 @@ public class Main {
         System.out.println("Simulation started.");
 
         var dependencyContainer = new DependencyContainer();
-
         var simulationTask = dependencyContainer.getSimulationTask();
         var plantRegrowingTask = dependencyContainer.getPlantRegrowingTask();
 
-        try (var executorService = Executors.newSingleThreadExecutor(); var scheduledExecutorService = Executors.newScheduledThreadPool(1)) {
+        try (var executorService = Executors.newSingleThreadExecutor();
+             var scheduledExecutorService = Executors.newScheduledThreadPool(1))
+        {
             scheduledExecutorService.scheduleAtFixedRate(plantRegrowingTask, 1, 5, TimeUnit.SECONDS);
-
             var submit = executorService.submit(simulationTask);
-
-            try {
-                submit.get();
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
+            submit.get();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
