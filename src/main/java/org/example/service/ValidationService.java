@@ -19,7 +19,7 @@ public class ValidationService {
     }
 
     public boolean isValidLocationForAnimal(Location location, Animal animal) {
-        return isPassableLocation(location) && isLocationOverpopulated(location, animal.getClass());
+        return isPassableLocation(location) && !isLocationOverpopulated(location, animal.getClass());
     }
 
     public boolean isCoordinateInsideArea(Coordinate coordinate, Area area) {
