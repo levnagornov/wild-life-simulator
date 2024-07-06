@@ -1,0 +1,27 @@
+OrganismEmoji:
+  ### Herbivores ###
+  Boar: "\uD83D\uDC17"
+  Buffalo: "\uD83D\uDC03"
+  Caterpillar: "\uD83D\uDC1B"
+  Deer: "\uD83E\uDD8C"
+  Duck: "\uD83E\uDD86"
+  Goat: "\uD83D\uDC10"
+  Horse: "\uD83D\uDC0E"
+  Mouse: "\uD83D\uDC01"
+  Rabbit: "\uD83D\uDC07"
+  Sheep: "\uD83D\uDC11"
+
+  ### Predators ###
+  Bear: "\uD83D\uDC3B"
+  Boa: "\uD83D\uDC0D"
+  Eagle: "\uD83E\uDD85"
+  Fox: "\uD83E\uDD8A"
+  Wolf: "\uD83D\uDC3A"
+
+  ### Plants ###
+  Grass: "\uD83C\uDF3F"
+
+LocationType:
+  Forest: "\uD83C\uDF32"
+  Sea: "\uD83C\uDF0A"
+  Mountain: "\uD83D\uDDFB"

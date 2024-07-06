@@ -1,0 +1,76 @@
+### Herbivores ###
+Duck:
+  Caterpillar: 0.9
+  Grass: 1.0
+
+Caterpillar:
+  Grass: 1.0
+
+Horse:
+  Grass: 1.0
+
+Deer:
+  Grass: 1.0
+
+Rabbit:
+  Grass: 1.0
+
+Mouse:
+  Caterpillar: 0.9
+  Grass: 1.0
+
+Goat:
+  Grass: 1.0
+
+Sheep:
+  Grass: 1.0
+
+Boar:
+  Mouse: 0.5
+  Caterpillar: 0.9
+  Grass: 1.0
+
+Buffalo:
+  Grass: 1.0
+
+### Predators ###
+Boa:
+  Fox: 0.15
+  Rabbit: 0.2
+  Mouse: 0.4
+  Duck: 0.1
+
+Fox:
+  Rabbit: 0.7
+  Mouse: 0.9
+  Duck: 0.6
+  Caterpillar: 0.4
+
+Bear:
+  Boa: 0.8
+  Horse: 0.4
+  Deer: 0.8
+  Rabbit: 0.8
+  Mouse: 0.9
+  Goat: 0.7
+  Sheep: 0.7
+  Boar: 0.5
+  Buffalo: 0.2
+  Duck: 0.1
+
+Eagle:
+  Fox: 0.1
+  Rabbit: 0.9
+  Mouse: 0.9
+  Duck: 0.8
+
+Wolf:
+  Horse: 0.1
+  Deer: 0.15
+  Rabbit: 0.6
+  Mouse: 0.8
+  Goat: 0.6
+  Sheep: 0.7
+  Boar: 0.15
+  Buffalo: 0.1
+  Duck: 0.4

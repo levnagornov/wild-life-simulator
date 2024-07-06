@@ -1,0 +1,5 @@
+iterationLimit: true
+iterationCount: 6
+allAnimalsDead: false
+allPredatorsDead: false
+allHerbivoreDead: false

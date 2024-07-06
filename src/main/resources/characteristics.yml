@@ -1,0 +1,114 @@
+### Herbivores ###
+Boar:
+  weight: 400.0
+  maxSpeciesPerCoordinate: 50
+  moveSpeed: 2
+  foodForSatiety: 50.0
+  startSatietyRatio: 0.5
+
+Buffalo:
+  weight: 700.0
+  maxSpeciesPerCoordinate: 10
+  moveSpeed: 3
+  foodForSatiety: 100.0
+  startSatietyRatio: 0.5
+
+Caterpillar:
+  weight: 0.01
+  maxSpeciesPerCoordinate: 1000
+  moveSpeed: 0
+  foodForSatiety: 0.0
+  startSatietyRatio: 0.5
+
+Deer:
+  weight: 300.0
+  maxSpeciesPerCoordinate: 20
+  moveSpeed: 4
+  foodForSatiety: 50.0
+  startSatietyRatio: 0.5
+
+Duck:
+  weight: 1.0
+  maxSpeciesPerCoordinate: 200
+  moveSpeed: 4
+  foodForSatiety: 0.15
+  startSatietyRatio: 0.5
+
+Goat:
+  weight: 60.0
+  maxSpeciesPerCoordinate: 140
+  moveSpeed: 3
+  foodForSatiety: 10.0
+  startSatietyRatio: 0.5
+
+Horse:
+  weight: 400.0
+  maxSpeciesPerCoordinate: 20
+  moveSpeed: 4
+  foodForSatiety: 60.0
+  startSatietyRatio: 0.5
+
+Mouse:
+  weight: 0.05
+  maxSpeciesPerCoordinate: 500
+  moveSpeed: 1
+  foodForSatiety: 0.01
+  startSatietyRatio: 0.5
+
+Rabbit:
+  weight: 2.0
+  maxSpeciesPerCoordinate: 150
+  moveSpeed: 2
+  foodForSatiety: 0.45
+  startSatietyRatio: 0.5
+
+Sheep:
+  weight: 70.0
+  maxSpeciesPerCoordinate: 140
+  moveSpeed: 3
+  foodForSatiety: 15.0
+  startSatietyRatio: 0.5
+
+### Predators ###
+Bear:
+  weight: 500.0
+  maxSpeciesPerCoordinate: 5
+  moveSpeed: 2
+  foodForSatiety: 80.0
+  startSatietyRatio: 0.5
+
+Boa:
+  weight: 15.0
+  maxSpeciesPerCoordinate: 30
+  moveSpeed: 1
+  foodForSatiety: 3.0
+  startSatietyRatio: 0.5
+
+Eagle:
+  weight: 6.0
+  maxSpeciesPerCoordinate: 20
+  moveSpeed: 3
+  foodForSatiety: 1.0
+  startSatietyRatio: 0.5
+
+Fox:
+  weight: 8.0
+  maxSpeciesPerCoordinate: 30
+  moveSpeed: 2
+  foodForSatiety: 2.0
+  startSatietyRatio: 0.5
+
+Wolf:
+  weight: 50.0
+  maxSpeciesPerCoordinate: 30
+  moveSpeed: 3
+  foodForSatiety: 8.0
+  startSatietyRatio: 0.5
+
+### Plants ###
+Grass:
+  weight: 1.0
+  maxSpeciesPerCoordinate: 1000
+  moveSpeed: 0
+  foodForSatiety: 0.0
+  startSatietyRatio: 0.0

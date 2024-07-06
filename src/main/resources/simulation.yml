@@ -1,0 +1,4 @@
+hungerRatio: 0.25
+iterationMinLatency: 1000
+height: 5
+width: 5
