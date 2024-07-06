@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.util.function.Predicate;
 
 public class TerminationService {
-    private static final Logger logger = LoggerFactory.getLogger(MovementService.class);
+    private static final Logger logger = LoggerFactory.getLogger(TerminationService.class);
 
     private final TerminationConfig terminationConfig;
     private final StatisticsService statisticsService;
