@@ -31,7 +31,6 @@ public class PopulationService {
         this.randomizerService = randomizerService;
         this.organisms = "Organisms";
         this.plants = "Plants";
-
     }
 
     public void populateOrganisms(Area area) {
