@@ -4,20 +4,20 @@ import org.example.config.ViewConfig;
 import org.example.entity.coordinate.CoordinateFactory;
 import org.example.entity.area.Area;
 import org.example.entity.location.Location;
-import org.example.repository.EmojiRepository;
+import org.example.provider.EmojiProvider;
 import org.example.service.StatisticsService;
 
 public class ConsoleView implements View {
     private final StatisticsService statisticsService;
-    private final EmojiRepository emojiRepository;
+    private final EmojiProvider emojiProvider;
     private final CoordinateFactory coordinateFactory;
     private final ViewConfig viewConfig;
 
     public ConsoleView(StatisticsService statisticsService,
-                       EmojiRepository emojiRepository,
+                       EmojiProvider emojiProvider,
                        CoordinateFactory coordinateFactory, ViewConfig viewConfig) {
         this.statisticsService = statisticsService;
-        this.emojiRepository = emojiRepository;
+        this.emojiProvider = emojiProvider;
         this.coordinateFactory = coordinateFactory;
         this.viewConfig = viewConfig;
     }
@@ -71,7 +71,7 @@ public class ConsoleView implements View {
         for (var entry : aliveOrganismMap.entrySet()) {
             var organismClass = entry.getKey();
             var aliveOrganisms = entry.getValue();
-            var organismEmoji = emojiRepository.getOrganismEmoji(organismClass);
+            var organismEmoji = emojiProvider.getOrganismEmoji(organismClass);
             System.out.println(organismEmoji + ": " + aliveOrganisms);
         }
     }
@@ -80,7 +80,7 @@ public class ConsoleView implements View {
         var coordinate = coordinateFactory.getCoordinate(y, x);
         var location = area.getLocationByCoordinate(coordinate);
         var locationType = location.getLocationType();
-        var emoji = emojiRepository.getLocationTypeEmoji(locationType);
+        var emoji = emojiProvider.getLocationTypeEmoji(locationType);
 
         System.out.print(emoji);
 

@@ -1,14 +1,14 @@
-package org.example.repository;
+package org.example.provider;
 
 import org.example.entity.organism.Organism;
 import org.example.config.reader.ConfigReader;
 
 import java.util.Map;
 
-public class DietRepository {
+public class DietProvider {
     private final Map<Class<? extends Organism>, Map<Class<? extends Organism>, Double>> dietMap;
 
-    public DietRepository(ConfigReader configReader) {
+    public DietProvider(ConfigReader configReader) {
         this.dietMap = configReader.readDiets();
     }
 

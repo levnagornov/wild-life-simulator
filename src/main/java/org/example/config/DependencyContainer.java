@@ -10,8 +10,8 @@ import org.example.entity.location.LocationFactory;
 import org.example.entity.organism.OrganismFactory;
 import org.example.entity.organism.OrganismRegistry;
 import org.example.logger.TimeExecutionLogger;
-import org.example.repository.DietRepository;
-import org.example.repository.EmojiRepository;
+import org.example.provider.DietProvider;
+import org.example.provider.EmojiProvider;
 import org.example.service.*;
 import org.example.config.reader.YamlConfigReader;
 import org.example.view.ConsoleView;
@@ -42,8 +42,8 @@ public class DependencyContainer {
         var validationService = new ValidationService(characteristicsFactory);
         var coordinateCalculator = new MovementCalculator(coordinateFactory, validationService, randomizerService);
 
-        var emojiRepository = new EmojiRepository(configReader);
-        var dietRepository = new DietRepository(configReader);
+        var emojiRepository = new EmojiProvider(configReader);
+        var dietRepository = new DietProvider(configReader);
 
         var delayService = new DelayService(simulationConfig.iterationMinLatency());
         var partnerFindingService = new PartnerFindingService();

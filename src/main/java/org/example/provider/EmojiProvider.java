@@ -1,4 +1,4 @@
-package org.example.repository;
+package org.example.provider;
 
 import org.example.config.reader.ConfigReader;
 import org.example.entity.location.LocationType;
@@ -6,11 +6,11 @@ import org.example.entity.organism.Organism;
 
 import java.util.Map;
 
-public class EmojiRepository {
+public class EmojiProvider {
     private final Map<LocationType, String> locationTypeEmojis;
     private final Map<Class<? extends Organism>, String> organismEmojisMap;
 
-    public EmojiRepository(ConfigReader configReader) {
+    public EmojiProvider(ConfigReader configReader) {
         this.locationTypeEmojis = configReader.readLocationTypeEmojis();
         this.organismEmojisMap = configReader.readOrganismEmojis();
     }

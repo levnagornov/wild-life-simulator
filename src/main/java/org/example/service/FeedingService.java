@@ -5,7 +5,7 @@ import org.example.entity.location.Location;
 import org.example.entity.organism.Organism;
 import org.example.entity.organism.animal.Animal;
 import org.example.logger.TimeExecutionLogger;
-import org.example.repository.DietRepository;
+import org.example.provider.DietProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,17 +17,17 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 public class FeedingService {
     private static final Logger logger = LoggerFactory.getLogger(FeedingService.class);
 
-    private final DietRepository dietRepository;
+    private final DietProvider dietProvider;
     private final RandomizerService randomizerService;
     private final StatisticsService statisticsService;
     private final TimeExecutionLogger timeExecutionLogger;
     private final Queue<Organism> deadAnimals;
 
-    public FeedingService(DietRepository dietRepository,
+    public FeedingService(DietProvider dietProvider,
                           RandomizerService randomizerService,
                           StatisticsService statisticsService,
                           TimeExecutionLogger timeExecutionLogger) {
-        this.dietRepository = dietRepository;
+        this.dietProvider = dietProvider;
         this.randomizerService = randomizerService;
         this.statisticsService = statisticsService;
         this.timeExecutionLogger = timeExecutionLogger;
@@ -85,7 +85,7 @@ public class FeedingService {
     }
 
     private List<Organism> getPossiblePreys(Organism eater, Map<Class<?>, List<Organism>> groupedOrganisms) {
-        var eaterDiet = dietRepository.getDiet(eater.getClass());
+        var eaterDiet = dietProvider.getDiet(eater.getClass());
 
         return groupedOrganisms.entrySet()
                 .stream()
@@ -102,7 +102,7 @@ public class FeedingService {
     }
 
     private boolean isPreyCaught(Organism eater, Organism prey) {
-        var eaterDiet = dietRepository.getDiet(eater.getClass());
+        var eaterDiet = dietProvider.getDiet(eater.getClass());
         var preyEatChance = eaterDiet.get(prey.getClass());
 
         return randomizerService.isSuccessfulAttempt(preyEatChance);
