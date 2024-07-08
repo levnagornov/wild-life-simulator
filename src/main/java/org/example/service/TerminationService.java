@@ -11,18 +11,33 @@ import org.slf4j.LoggerFactory;
 
 import java.util.function.Predicate;
 
+/**
+ * Service class for determining if the simulation should be terminated based on configured termination conditions.
+ */
 public class TerminationService {
     private static final Logger logger = LoggerFactory.getLogger(TerminationService.class);
 
     private final TerminationConfig terminationConfig;
     private final StatisticsService statisticsService;
 
+    /**
+     * Constructs a TerminationService with termination configuration and statistics service.
+     *
+     * @param terminationConfig Configuration for termination conditions.
+     * @param statisticsService Service for collecting and providing statistics.
+     */
     public TerminationService(TerminationConfig terminationConfig,
                               StatisticsService statisticsService) {
         this.terminationConfig = terminationConfig;
         this.statisticsService = statisticsService;
     }
 
+    /**
+     * Checks if the simulation should be finished based on configured termination conditions.
+     *
+     * @param area The simulation area.
+     * @return true if the simulation should be finished, otherwise false.
+     */
     public boolean isSimulationFinished(Area area) {
         var areAllHerbivoreDead = areAllHerbivoreDead(area);
         var areAllPredatorsDead = areAllPredatorsDead(area);
@@ -39,11 +54,22 @@ public class TerminationService {
         return isSimulationFinished;
     }
 
+    /**
+     * Checks if the iteration limit is reached.
+     *
+     * @return true if the iteration limit is reached, otherwise false.
+     */
     private boolean isIterationLimitReached() {
         return terminationConfig.iterationLimit()
                 && statisticsService.getCurrentIterationCounter() > terminationConfig.iterationCount();
     }
 
+    /**
+     * Checks if all predators are dead in the area based on configured condition.
+     *
+     * @param area The simulation area.
+     * @return true if all predators are dead, otherwise false.
+     */
     private boolean areAllPredatorsDead(Area area) {
         if (!terminationConfig.allPredatorsDead()) {
             return false;
@@ -60,6 +86,12 @@ public class TerminationService {
                    .noneMatch(hasAlivePredator);
     }
 
+    /**
+     * Checks if all herbivores are dead in the area based on configured condition.
+     *
+     * @param area The simulation area.
+     * @return true if all herbivores are dead, otherwise false.
+     */
     private boolean areAllHerbivoreDead(Area area) {
         if (!terminationConfig.allHerbivoreDead()) {
             return false;
@@ -76,6 +108,12 @@ public class TerminationService {
                    .noneMatch(hasAliveHerbivore);
     }
 
+    /**
+     * Checks if all animals are dead in the area based on configured condition.
+     *
+     * @param area The simulation area.
+     * @return true if all animals are dead, otherwise false.
+     */
     private boolean areAllAnimalsDead(Area area) {
         if (!terminationConfig.allAnimalsDead()) {
             return false;

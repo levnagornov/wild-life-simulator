@@ -7,6 +7,9 @@ import org.example.logger.TimeExecutionLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * The {@code MovementService} class manages animal movement within an area.
+ */
 public class MovementService {
     private static final Logger logger = LoggerFactory.getLogger(MovementService.class);
 
@@ -15,6 +18,13 @@ public class MovementService {
     private final TimeExecutionLogger timeExecutionLogger;
     private Area area;
 
+    /**
+     * Constructs a {@code MovementService} with the specified dependencies.
+     *
+     * @param movementCalculator the calculator for calculating next coordinates
+     * @param lockCoordinator    the coordinator for managing locks during movement
+     * @param timeExecutionLogger the logger for logging execution time
+     */
     public MovementService(MovementCalculator movementCalculator,
                            LockCoordinator lockCoordinator,
                            TimeExecutionLogger timeExecutionLogger) {
@@ -23,23 +33,44 @@ public class MovementService {
         this.timeExecutionLogger = timeExecutionLogger;
     }
 
+    /**
+     * Moves all animals within the specified area.
+     *
+     * @param area the area where animals are moved
+     */
     public void move(Area area) {
         this.area = area;
         timeExecutionLogger.logExecutionTime("Movement", moveAnimals(area));
     }
 
+    /**
+     * Returns a runnable that moves animals in each location of the area in parallel.
+     *
+     * @param area the area where animals are moved
+     * @return a runnable for moving animals
+     */
     private Runnable moveAnimals(Area area) {
         return () -> area.getLocations()
                          .parallelStream()
                          .forEach(this::moveAnimalsInLocation);
     }
 
+    /**
+     * Moves animals within a specific location.
+     *
+     * @param location the location where animals are moved
+     */
     private void moveAnimalsInLocation(Location location) {
         location.getAnimals()
                 .parallelStream()
                 .forEach(this::moveAnimal);
     }
 
+    /**
+     * Moves a specific animal to its next coordinate based on movement calculations.
+     *
+     * @param animal the animal to be moved
+     */
     private void moveAnimal(Animal animal) {
         if (animal.getCharacteristics().moveSpeed() == 0) {
             logger.debug("Can't move animal {} the move speed is set 0", animal.getClass().getSimpleName() + animal.getId());

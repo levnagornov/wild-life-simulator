@@ -14,6 +14,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.stream.IntStream;
 
+/**
+ * The {@code PopulationService} class handles population of organisms and plants in the specified area.
+ */
 public class PopulationService {
     private static final Logger logger = LoggerFactory.getLogger(PopulationService.class);
 
@@ -23,6 +26,13 @@ public class PopulationService {
     private final String organisms;
     private final String plants;
 
+    /**
+     * Constructs a new {@code PopulationService} with the given dependencies.
+     *
+     * @param organismRegistry  the registry of organisms
+     * @param organismFactory   the factory to create organisms
+     * @param randomizerService the service for randomization
+     */
     public PopulationService(OrganismRegistry organismRegistry,
                              OrganismFactory organismFactory,
                              RandomizerService randomizerService) {
@@ -33,14 +43,31 @@ public class PopulationService {
         this.plants = "Plants";
     }
 
+    /**
+     * Populates organisms in the specified area.
+     *
+     * @param area the area to populate with organisms
+     */
     public void populateOrganisms(Area area) {
         populate(organisms, area, this::populateOrganismsInLocation);
     }
 
+    /**
+     * Populates plants in the specified area.
+     *
+     * @param area the area to populate with plants
+     */
     public void populatePlants(Area area) {
         populate(plants, area, this::populatePlantsInLocation);
     }
 
+    /**
+     * Populates entities of the specified type in the area.
+     *
+     * @param type            the type of entities to populate (organisms or plants)
+     * @param area            the area to populate
+     * @param locationConsumer the consumer to populate entities in each location
+     */
     private void populate(String type, Area area, Consumer<Location> locationConsumer) {
         logger.debug("{} populating has been started", type);
 
@@ -52,6 +79,11 @@ public class PopulationService {
         logger.debug("{} populating has been completed", type);
     }
 
+    /**
+     * Populates plants in the specified location.
+     *
+     * @param location the location to populate with plants
+     */
     private void populatePlantsInLocation(Location location) {
         var plants = organismRegistry.getPossibleOrganisms()
                 .stream()
@@ -64,6 +96,11 @@ public class PopulationService {
         logger.debug("{} plants were populated successfully in location: {}", plants.size(), location);
     }
 
+    /**
+     * Populates organisms in the specified location.
+     *
+     * @param location the location to populate with organisms
+     */
     private void populateOrganismsInLocation(Location location) {
         var organisms = organismRegistry.getPossibleOrganisms()
                 .stream()
@@ -75,6 +112,14 @@ public class PopulationService {
         logger.debug("{} organisms were populated successfully in location: {}", organisms.size(), location);
     }
 
+    /**
+     * Generates a list of organisms of the specified class at the given coordinate.
+     *
+     * @param organismClass the class of organisms to generate
+     * @param coordinate    the coordinate for the organisms
+     * @param populationAmount the number of organisms to generate
+     * @return a list of generated organisms
+     */
     private List<Organism> generateOrganismList(Class<? extends Organism> organismClass, Coordinate coordinate, int populationAmount) {
         return IntStream.range(0, populationAmount)
                 .mapToObj(i -> organismFactory.createOrganism(organismClass, coordinate))
