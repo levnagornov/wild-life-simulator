@@ -19,6 +19,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The {@code YamlConfigReader} class provides implementation for reading configuration settings from YAML files.
+ * It uses Jackson's YAMLMapper for parsing YAML files.
+ */
 public class YamlConfigReader implements ConfigReader {
     private final File dietsFile;
     private final File emojisFiles;
@@ -29,6 +33,11 @@ public class YamlConfigReader implements ConfigReader {
     private final OrganismRegistry organismRegistry;
     private final ObjectMapper mapper;
 
+    /**
+     * Constructs a new {@code YamlConfigReader} with the specified {@code OrganismRegistry}.
+     *
+     * @param organismRegistry the organism registry
+     */
     public YamlConfigReader(OrganismRegistry organismRegistry) {
         this.dietsFile = ResourcePaths.DIETS_FILE;
         this.emojisFiles = ResourcePaths.EMOJIS_FILE;
@@ -40,6 +49,9 @@ public class YamlConfigReader implements ConfigReader {
         this.mapper = new YAMLMapper().enable(JsonParser.Feature.STRICT_DUPLICATE_DETECTION);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Class<? extends Organism>, Map<Class<? extends Organism>, Double>> readDiets() {
         checkFileExtension(dietsFile);
@@ -51,6 +63,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Class<? extends Organism>, Characteristics> readCharacteristics() {
         checkFileExtension(characteristicsFile);
@@ -62,6 +77,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Class<? extends Organism>, String> readOrganismEmojis() {
         checkFileExtension(emojisFiles);
@@ -73,6 +91,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<LocationType, String> readLocationTypeEmojis() {
         checkFileExtension(emojisFiles);
@@ -84,6 +105,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public SimulationConfig readSimulationConfig() {
         checkFileExtension(simulationConfigFile);
@@ -95,6 +119,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TerminationConfig readTerminationConfig() {
         checkFileExtension(terminationConfigFile);
@@ -106,6 +133,9 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ViewConfig readViewConfig() {
         checkFileExtension(viewConfigFile);
@@ -117,6 +147,12 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * Checks if the given file has a valid YAML extension.
+     *
+     * @param file the file to check
+     * @throws InvalidConfigFile if the file does not have a valid YAML extension
+     */
     private void checkFileExtension(File file) {
         var fileName = file.getName().toLowerCase();
         if (!fileName.endsWith(".yml") && !fileName.endsWith(".yaml")) {
@@ -124,6 +160,12 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * Validates the eating chance value.
+     *
+     * @param eatChance the eating chance value to check
+     * @throws InvalidConfigFile if the eating chance value is invalid
+     */
     private void checkEatChance(Double eatChance) {
         if (eatChance < 0) {
             throw new InvalidConfigFile("Diet config file is invalid. Eat chance can't be negative.");
@@ -138,6 +180,12 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * Validates the characteristics of an organism.
+     *
+     * @param characteristics the characteristics to check
+     * @throws InvalidConfigFile if any characteristic value is invalid
+     */
     private void checkCharacteristics(Characteristics characteristics) {
         if (characteristics.weight() < 0
                 || characteristics.foodForSatiety() < 0
@@ -148,11 +196,23 @@ public class YamlConfigReader implements ConfigReader {
         }
     }
 
+    /**
+     * Reads the raw diet map from the YAML file.
+     *
+     * @return the raw diet map
+     * @throws IOException if an I/O error occurs
+     */
     private Map<String, Map<String, Double>> getRawDietMap() throws IOException {
         return mapper.readValue(dietsFile, new TypeReference<>() {
         });
     }
 
+    /**
+     * Reads the raw characteristics map from the YAML file.
+     *
+     * @return the raw characteristics map
+     * @throws IOException if an I/O error occurs
+     */
     private Map<String, Characteristics> getRawCharacteristicsMap() throws IOException {
         var mapType = mapper.getTypeFactory()
                 .constructMapType(Map.class, String.class, Characteristics.class);
@@ -160,11 +220,23 @@ public class YamlConfigReader implements ConfigReader {
         return mapper.readValue(characteristicsFile, mapType);
     }
 
+    /**
+     * Reads the raw emoji map from the YAML file.
+     *
+     * @return the raw emoji map
+     * @throws IOException if an I/O error occurs
+     */
     private Map<String, Map<String, String>> getRawEmojiMap() throws IOException {
         return mapper.readValue(emojisFiles, new TypeReference<>() {
         });
     }
 
+    /**
+     * Converts the raw diet map to a map with organism classes and their respective diet configurations.
+     *
+     * @param rawDietMap the raw diet map
+     * @return the converted diet map
+     */
     private Map<Class<? extends Organism>, Map<Class<? extends Organism>, Double>> convertRawDietMap(Map<String, Map<String, Double>> rawDietMap) {
         var dietMap = new HashMap<Class<? extends Organism>, Map<Class<? extends Organism>, Double>>();
 
@@ -190,6 +262,12 @@ public class YamlConfigReader implements ConfigReader {
         return dietMap;
     }
 
+    /**
+     * Converts the raw characteristics map to a map with organism classes and their respective characteristics.
+     *
+     * @param rawCharacteristicsMap the raw characteristics map
+     * @return the converted characteristics map
+     */
     private Map<Class<? extends Organism>, Characteristics> convertRawCharacteristicsMap(Map<String, Characteristics> rawCharacteristicsMap) {
         var characteristicsMap = new HashMap<Class<? extends Organism>, Characteristics>();
 
@@ -205,6 +283,12 @@ public class YamlConfigReader implements ConfigReader {
         return characteristicsMap;
     }
 
+    /**
+     * Converts the raw organism emoji map to a map with organism classes and their respective emojis.
+     *
+     * @param rawEmojiMap the raw emoji map
+     * @return the converted organism emoji map
+     */
     private Map<Class<? extends Organism>, String> convertRawOrganismEmojiMap(Map<String, Map<String, String>> rawEmojiMap) {
         var organismEmojiKey = "OrganismEmoji";
         if (!rawEmojiMap.containsKey(organismEmojiKey)) {
@@ -223,6 +307,12 @@ public class YamlConfigReader implements ConfigReader {
         return emojiMap;
     }
 
+    /**
+     * Converts the raw location type emoji map to a map with location types and their respective emojis.
+     *
+     * @param rawLocationTypeEmojiMap the raw location type emoji map
+     * @return the converted location type emoji map
+     */
     private Map<LocationType, String> converRawLocationTypeEmojiMap(Map<String, Map<String, String>> rawLocationTypeEmojiMap) {
         var locationTypeEmojiKey = "LocationType";
         if (!rawLocationTypeEmojiMap.containsKey(locationTypeEmojiKey)) {
